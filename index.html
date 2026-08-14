@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renewal Loop — Modular Apparel, Built to Last</title>
+    <meta name="description" content="Renewal Loop is modular apparel with snap-and-secure technology. Replace worn panels — not the whole garment. Coming soon.">
+    <style>
+        :root {
+            --bg: #0F0F0F;
+            --surface: #1A1A1A;
+            --accent: #C2B280;
+            --accent-dark: #A89868;
+            --text: #F5F5F0;
+            --text-muted: #888880;
+            --border: #2A2A2A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-mark {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-mark::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px 40px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(194, 178, 128, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 84px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, var(--text) 60%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 .accent {
+            color: var(--accent);
+            -webkit-text-fill-color: var(--accent);
+        }
+
+        .tagline {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+
+        /* ===== EMAIL SIGNUP ===== */
+        .signup-section {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 60px;
+        }
+
+        .signup-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .signup-form {
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: border-color 0.3s;
+        }
+
+        .signup-form:focus-within {
+            border-color: var(--accent);
+        }
+
+        .signup-form input[type="email"] {
+            flex: 1;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 16px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .signup-form input[type="email"]::placeholder {
+            color: var(--text-muted);
+        }
+
+        .signup-form button {
+            padding: 16px 28px;
+            background: var(--accent);
+            color: #0F0F0F;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .signup-form button:hover {
+            background: var(--accent-dark);
+        }
+
+        .signup-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .signup-message {
+            margin-top: 16px;
+            font-size: 14px;
+            text-align: center;
+            min-height: 20px;
+            transition: opacity 0.3s;
+        }
+
+        .signup-message.success {
+            color: #4CAF50;
+        }
+
+        .signup-message.error {
+            color: #f44336;
+        }
+
+        /* ===== FEATURES STRIP ===== */
+        .features {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 20px;
+            max-width: 900px;
+            margin-bottom: 80px;
+        }
+
+        .feature {
+            text-align: center;
+            max-width: 220px;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            border: 1.5px solid var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .feature h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .feature p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== CONCEPT SECTION ===== */
+        .concept {
+            padding: 80px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .concept h2 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .concept p {
+            max-width: 600px;
+            margin: 0 auto 16px;
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero > * {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .hero .coming-soon-badge { animation-delay: 0.1s; }
+        .hero h1 { animation-delay: 0.2s; }
+        .hero .tagline { animation-delay: 0.3s; }
+        .hero .signup-section { animation-delay: 0.4s; }
+        .hero .features { animation-delay: 0.5s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            nav { padding: 16px 20px; }
+
+            .features {
+                gap: 24px;
+            }
+
+            .feature {
+                max-width: 140px;
+            }
+
+            .signup-form {
+                flex-direction: column;
+                gap: 8px;
+                border: none;
+                background: transparent;
+            }
+
+            .signup-form input[type="email"] {
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                background: var(--surface);
+            }
+
+            .signup-form button {
+                border-radius: 8px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <span class="logo-mark"></span>
+            Renewal Loop
+        </a>
+    </nav>
+
+    <section class="hero">
+        <span class="coming-soon-badge">Coming Soon</span>
+
+        <h1>
+            Apparel built like <span class="accent">hardware.</span><br>
+            Repaired, not replaced.
+        </h1>
+
+        <p class="tagline">
+            Modular garments with snap-and-secure technology. Swap worn panels — elbows, collars, zippers — in seconds. Keep the garment. Lose the waste.
+        </p>
+
+        <div class="signup-section">
+            <p class="signup-label">Be the first to know when we launch.</p>
+            <form class="signup-form" id="signupForm" novalidate>
+                <input type="email" id="emailInput" placeholder="your@email.com" required aria-label="Email address">
+                <button type="submit" id="submitBtn">Notify Me</button>
+            </form>
+            <p class="signup-message" id="signupMessage"></p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Snap-and-Secure</h3>
+                <p>Magnetic snap buttons lock panels in place. No tools, no sewing.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">♻️</div>
+                <h3>Replace, Don't Discard</h3>
+                <p>Swap elbows, knees, collars, zippers. Keep the garment for 5+ years.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📦</div>
+                <h3>Refurbish Plan</h3>
+                <p>$15/month. Replacement panels auto-shipped. Free shipping. Cancel anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="concept" id="concept">
+        <h2>One garment. Infinite refreshes.</h2>
+        <p>Every Renewal Loop garment is engineered around a modular architecture. The body is a durable chassis. The panels are consumable, replaceable, upgradable modules.</p>
+        <p>When a zipper fails, you don't throw away the jacket. You snap in a new $25 zipper panel. When you want a new look, you swap to a different color. When a collar frays, you replace the collar — not the garment.</p>
+        <p>Less waste. Lower lifetime cost. A garment that actually lasts.</p>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Product Spec</a>
+            <a href="#">Business Plan</a>
+            <a href="#">Tech Architecture</a>
+        </div>
+        <p>&copy; 2026 Renewal Loop. Modular apparel. Built to last.</p>
+    </footer>
+
+    <script>
+        // ===== Navbar scroll effect =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== Email signup =====
+        const form = document.getElementById('signupForm');
+        const emailInput = document.getElementById('emailInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const message = document.getElementById('signupMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = emailInput.value.trim();
+
+            // Basic validation
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                message.textContent = 'Please enter a valid email address.';
+                message.className = 'signup-message error';
+                return;
+            }
+
+            // Submit
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Joining...';
+            message.textContent = '';
+
+            try {
+                // TODO: Replace with real endpoint when backend is live
+                // For now, simulate successful signup
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                message.textContent = "You're on the list. We'll be in touch at launch. 🔁";
+                message.className = 'signup-message success';
+                emailInput.value = '';
+                submitBtn.textContent = 'Joined ✓';
+            } catch (err) {
+                message.textContent = 'Something went wrong. Please try again.';
+                message.className = 'signup-message error';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Notify Me';
+            }
+        });
+    </script>
+
+</body>
+</html>
